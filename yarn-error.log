@@ -1,0 +1,110 @@
+Arguments: 
+  D:\NodeJS\node.exe C:\Users\Qiacr\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  D:\Python language\Scripts\;D:\Python language\;D:\VMwareWorkstation_V16.1.0_XiTongZhijIa\bin\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;D:\Dev-Cpp\MinGW64\bin;D:\adb;D:\ffmpeg\ffmpeg-20180605-b748772-win64-static\bin;D:\MySQL\bin;D:\gradle-7.4.2\bin;D:\Android SDK\build-tools\32.0.0;D:\Android SDK\platform-tools;D:\Android SDK\emulator;D:\Android SDK\tools;D:\Android SDK\tools\bin;C:\mooctest\JDK8\bin;C:\mooctest\JDK8\jre\bin;D:\Python language;D:\Python language\Scripts;D:\Git\cmd;C:\Program Files\dotnet\;D:\微信web开发者工具\dll;C:\Users\Qiacr\.deno\bin;D:\Golang\bin;D:\NodeJS\;C:\ProgramData\chocolatey\bin;C:\Users\Qiacr\.windows-build-tools\python27\;C:\Users\Qiacr\algs4\bin;C:\Users\Qiacr\AppData\Local\Microsoft\WindowsApps;D:\Microsoft VS Code\bin;C:\Users\Qiacr\.dotnet\tools;C:\Users\Qiacr\.deno\bin;D:\Quick App IDE\bin;D:\IntelliJ IDEA 2022.1.3\bin;;C:\Users\Qiacr\go\bin;C:\Users\Qiacr\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.12.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.npmmirror.com/rxjs/-/rxjs-6.6.7.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\Qiacr\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141517:19)
+      at Object.onceWrapper (node:events:627:28)
+      at ClientRequest.emit (node:events:513:28)
+      at TLSSocket.emitRequestTimeout (node:_http_client:838:9)
+      at Object.onceWrapper (node:events:627:28)
+      at TLSSocket.emit (node:events:525:35)
+      at Socket._onTimeout (node:net:562:8)
+      at listOnTimeout (node:internal/timers:564:17)
+      at process.processTimers (node:internal/timers:507:7)
+
+npm manifest: 
+  {
+    "name": "find-public-toilet-web",
+    "version": "1.0.0",
+    "private": true,
+    "description": "find-public-toilet-web",
+    "templateInfo": {
+      "name": "taro-ui",
+      "typescript": false,
+      "css": "sass"
+    },
+    "scripts": {
+      "build:weapp": "taro build --type weapp",
+      "build:swan": "taro build --type swan",
+      "build:alipay": "taro build --type alipay",
+      "build:tt": "taro build --type tt",
+      "build:h5": "taro build --type h5",
+      "build:rn": "taro build --type rn",
+      "build:qq": "taro build --type qq",
+      "build:jd": "taro build --type jd",
+      "build:quickapp": "taro build --type quickapp",
+      "dev:weapp": "npm run build:weapp -- --watch",
+      "dev:swan": "npm run build:swan -- --watch",
+      "dev:alipay": "npm run build:alipay -- --watch",
+      "dev:tt": "npm run build:tt -- --watch",
+      "dev:h5": "npm run build:h5 -- --watch",
+      "dev:rn": "npm run build:rn -- --watch",
+      "dev:qq": "npm run build:qq -- --watch",
+      "dev:jd": "npm run build:jd -- --watch",
+      "dev:quickapp": "npm run build:quickapp -- --watch"
+    },
+    "browserslist": [
+      "last 3 versions",
+      "Android >= 4.1",
+      "ios >= 8"
+    ],
+    "author": "",
+    "dependencies": {
+      "@babel/runtime": "^7.7.7",
+      "@tarojs/components": "3.5.7",
+      "@tarojs/helper": "3.5.7",
+      "@tarojs/plugin-platform-weapp": "3.5.7",
+      "@tarojs/plugin-platform-alipay": "3.5.7",
+      "@tarojs/plugin-platform-tt": "3.5.7",
+      "@tarojs/plugin-platform-swan": "3.5.7",
+      "@tarojs/plugin-platform-jd": "3.5.7",
+      "@tarojs/plugin-platform-qq": "3.5.7",
+      "@tarojs/router": "3.5.7",
+      "@tarojs/runtime": "3.5.7",
+      "@tarojs/shared": "3.5.7",
+      "@tarojs/taro": "3.5.7",
+      "@tarojs/taro-h5": "3.5.7",
+      "@tarojs/plugin-framework-react": "3.5.7",
+      "lodash": "4.17.15",
+      "taro-ui": "^3.1.0-beta.2",
+      "@tarojs/react": "3.5.7",
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.8.0",
+      "@tarojs/cli": "3.5.7",
+      "webpack": "5.69.0",
+      "@tarojs/webpack5-runner": "3.5.7",
+      "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+      "react-refresh": "^0.11.0",
+      "@types/webpack-env": "^1.13.6",
+      "babel-preset-taro": "3.5.7",
+      "eslint": "^8.12.0",
+      "eslint-config-taro": "3.5.7",
+      "stylelint": "9.3.0",
+      "@types/react": "^18.0.0",
+      "eslint-plugin-react": "^7.8.2",
+      "eslint-plugin-import": "^2.12.0",
+      "eslint-plugin-react-hooks": "^4.2.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
