@@ -8,7 +8,7 @@ import "./index.scss";
 const Index = () => {
   return (
     <View className="index">
-      <Text>Hello world!</Text>
+      <Text>Hello world! Taro</Text>
       <AtButton type="primary">I need Taro UI</AtButton>
       <Text>Taro UI 支持 Vue 了吗？</Text>
       <AtButton type="primary" circle>

@@ -10,11 +10,11 @@ export default defineAppConfig({
   tabBar: {
     list: [
       {
-        pagePath: "./pages/index/index.jsx",
+        pagePath: "pages/index/index",
         text: "首页",
       },
       {
-        pagePath: "./pages/User/index.jsx",
+        pagePath: "pages/User/index",
         text: "用户",
       },
     ],
