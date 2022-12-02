@@ -1,0 +1,11 @@
+@import "~taro-ui/dist/style/components/avatar.scss";
+
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+
+  .nickname {
+    margin-left: 1em;
+  }
+}

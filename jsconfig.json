@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    }
+}
+// 讓vscode識別@路徑給出的提示，會自動讀取jsconfig.json中的配置
