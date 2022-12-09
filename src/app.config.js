@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 export default defineAppConfig({
-  pages: ["pages/Index/index", "pages/User/index"],
+  pages: ["pages/Index/index", "pages/User/index", "pages/MapToilet/index"],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
