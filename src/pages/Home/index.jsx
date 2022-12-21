@@ -10,6 +10,7 @@ import "./index.scss";
 import nearIcon from "@/assets/nearby.svg";
 import inMapIcon from "@/assets/in-map.svg";
 import popularIcon from "@/assets/popular.svg";
+import { useEffect } from "react";
 
 const Index = () => {
   /**
@@ -72,6 +73,12 @@ const Index = () => {
         });
     }
   };
+
+  const [nearToilet, setNearToilet] = useState([]);
+
+  useEffect(() => {
+    setNearToilet(getLocationToiletInfoApi());
+  }, []);
 
   return (
     <View className="index-view">
