@@ -1,10 +1,15 @@
+/* eslint-disable import/first */
 /* eslint-disable jsx-quotes */
 import { View } from "@tarojs/components";
 import { useState } from "react";
-import { AtButton, AtForm, AtGrid, AtInput, AtList, AtListItem } from "taro-ui";
+import { AtButton, AtGrid, AtInput, AtList, AtListItem } from "taro-ui";
 import Taro from "@tarojs/taro";
 
 import "./index.scss";
+
+import nearIcon from "@/assets/nearby.svg";
+import inMapIcon from "@/assets/in-map.svg";
+import popularIcon from "@/assets/popular.svg";
 
 const Index = () => {
   /**
@@ -12,18 +17,15 @@ const Index = () => {
    */
   const gridData = [
     {
-      image:
-        "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
+      image: nearIcon,
       value: "附近的厕所",
     },
     {
-      image:
-        "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
+      image: inMapIcon,
       value: "地图上查看",
     },
     {
-      image:
-        "https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png",
+      image: popularIcon,
       value: "热门的公厕",
     },
   ];
@@ -62,10 +64,11 @@ const Index = () => {
   });
 
   const onGridClick = (item, index) => {
+    console.log("点击了");
     switch (index) {
       case 1:
         Taro.navigateTo({
-          url: "",
+          url: "MapToilet",
         });
     }
   };
@@ -76,20 +79,18 @@ const Index = () => {
         <AtGrid data={gridData} onClick={onGridClick} />
       </View>
       <View>
-        <AtForm>
-          <AtInput
-            // className="input-control"
-            name="locationName"
-            clear
-            placeholder="输入地点搜索"
-            title="成都"
-            type="text"
-            value={inputSearch}
-            onChange={inputChange}
-          >
-            <AtButton>搜索</AtButton>
-          </AtInput>
-        </AtForm>
+        <AtInput
+          // className="input-control"
+          name="locationName"
+          clear
+          placeholder="输入地点搜索"
+          title="成都"
+          type="text"
+          value={inputSearch}
+          onChange={inputChange}
+        >
+          <AtButton onClick={() => console.log(inputSearch)}>搜索</AtButton>
+        </AtInput>
       </View>
       <View>
         <AtList>

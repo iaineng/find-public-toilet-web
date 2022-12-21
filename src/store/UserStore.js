@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import Taro from "@tarojs/taro";
 
 class UserStore {
   constructor() {
@@ -9,7 +10,23 @@ class UserStore {
   avatar = "";
   id = 0;
 
-  login() {}
+  login() {
+    Taro.login({
+      success: function (res) {
+        if (res.code) {
+          //发起网络请求
+          Taro.request({
+            url: "https://test.com/onLogin",
+            data: {
+              code: res.code,
+            },
+          });
+        } else {
+          console.log("登录失败！" + res.errMsg);
+        }
+      },
+    });
+  }
   register() {}
   changeInfo() {}
 }

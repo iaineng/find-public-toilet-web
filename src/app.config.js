@@ -19,12 +19,12 @@ export default defineAppConfig({
         selectedIconPath: "./assets/tabBar/home_selected.png",
         text: "首页",
       },
-      // {
-      //   pagePath: "pages/category/index",
-      //   iconPath: "./static/tabBar/category.png",
-      //   selectedIconPath: "./static/tabBar/category_selected.png",
-      //   text: "分类"
-      // },
+      {
+        pagePath: "pages/Collect/index",
+        iconPath: "./assets/tabBar/category.png",
+        selectedIconPath: "./assets/tabBar/category_selected.png",
+        text: "数据",
+      },
       {
         pagePath: "pages/User/index",
         iconPath: "./assets/tabBar/user.png",
