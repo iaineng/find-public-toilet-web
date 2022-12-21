@@ -1,14 +1,14 @@
 /* eslint-disable import/first */
 /* eslint-disable jsx-quotes */
-import useUserStore from "@/store/UserStore.js";
 import { View, Text } from "@tarojs/components";
 import { AtAvatar, AtCard, AtList, AtListItem } from "taro-ui";
 
 import "./index.scss";
 import mikuImg from "@/assets/miku.png";
+import useStore from "@/store";
 
 const User = () => {
-  const userStore = useUserStore();
+  const { userStore } = useStore();
 
   return (
     <View className="user-view">

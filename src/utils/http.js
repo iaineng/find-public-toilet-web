@@ -1,3 +1,4 @@
+import { getToken } from "@/utils/token";
 import axios from "axios";
 import { TaroAdapter } from "axios-taro-adapter";
 
@@ -8,7 +9,12 @@ const http = axios.create({
 });
 
 http.interceptors.request.use(
-  (config) => config,
+  (config) => {
+    const token = getToken() || "";
+    if (token !== "") {
+      config.auth.token = `Bear ${token}`;
+    }
+  },
   (error) => {
     Promise.reject(error);
   }

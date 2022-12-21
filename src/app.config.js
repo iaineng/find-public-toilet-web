@@ -1,6 +1,11 @@
 /* eslint-disable no-undef */
 export default defineAppConfig({
-  pages: ["pages/Index/index", "pages/User/index", "pages/MapToilet/index"],
+  pages: [
+    "pages/Home/index",
+    "pages/User/index",
+    "pages/Collect/index",
+    "pages/MapToilet/index",
+  ],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
@@ -14,7 +19,7 @@ export default defineAppConfig({
     borderStyle: "black",
     list: [
       {
-        pagePath: "pages/Index/index",
+        pagePath: "pages/Home/index",
         iconPath: "./assets/tabBar/home.png",
         selectedIconPath: "./assets/tabBar/home_selected.png",
         text: "首页",

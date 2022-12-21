@@ -1,12 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import Taro from "@tarojs/taro";
+import userLoginApi from "@/api/User/userLogin";
+import userRegisterApi from "@/api/User/userRegister";
 
 class UserStore {
   constructor() {
     makeAutoObservable(this);
   }
   username = "miku";
-  //   password = "miku";
   avatar = "";
   id = 0;
 
@@ -14,24 +15,31 @@ class UserStore {
     Taro.login({
       success: function (res) {
         if (res.code) {
-          //发起网络请求
-          Taro.request({
-            url: "https://test.com/onLogin",
-            data: {
-              code: res.code,
-            },
-          });
+          userLoginApi(res.code);
+        } else {
+          console.log("注册失败！" + res.errMsg);
+        }
+      },
+    });
+  }
+  register() {
+    const username = this.username;
+    Taro.login({
+      success: function (res) {
+        if (res.code) {
+          userRegisterApi(res.code, username);
         } else {
           console.log("登录失败！" + res.errMsg);
         }
       },
     });
   }
-  register() {}
   changeInfo() {}
 }
 
-const userStore = new UserStore();
+export default UserStore;
 
-const useUserStore = () => userStore;
-export default useUserStore;
+// const userStore = new UserStore();
+
+// const useUserStore = () => userStore;
+// export default useUserStore;
