@@ -1,10 +1,15 @@
 import UserStore from "@/store/UserStore";
+import { useContext, createContext } from "react";
 
 class RootStore {
-  userStore = new UserStore();
+  constructor() {
+    this.userStore = new UserStore();
+  }
 }
 
 const rootStore = new RootStore();
-const useStore = () => rootStore;
+
+const context = createContext(rootStore);
+const useStore = () => useContext(context);
 
 export default useStore;

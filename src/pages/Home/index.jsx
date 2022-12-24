@@ -1,8 +1,8 @@
 /* eslint-disable import/first */
 /* eslint-disable jsx-quotes */
-import { View } from "@tarojs/components";
-import { useState } from "react";
-import { AtButton, AtGrid, AtInput, AtList, AtListItem } from "taro-ui";
+import { Input, View } from "@tarojs/components";
+import { useState, useEffect } from "react";
+import { AtButton, AtGrid, AtList, AtListItem } from "taro-ui";
 import Taro from "@tarojs/taro";
 
 import "./index.scss";
@@ -10,7 +10,8 @@ import "./index.scss";
 import nearIcon from "@/assets/nearby.svg";
 import inMapIcon from "@/assets/in-map.svg";
 import popularIcon from "@/assets/popular.svg";
-import { useEffect } from "react";
+
+import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
 
 const Index = () => {
   /**
@@ -36,72 +37,78 @@ const Index = () => {
   const inputChange = (event) => {
     setInputSearch(event.target.value);
   };
-
-  const testHandle = () => {
-    const params = {
-      title: "清华大学紫荆学生公寓5号楼",
-      address: "北京海淀区清华大学紫荆学生公寓5号楼",
-      latitude: "40.010907",
-      longitude: "116.327148",
-    };
-    const name = params.title;
-    const address = params.address;
-    const latitude = Number(params.latitude);
-    const longitude = Number(params.longitude);
-
+  // 进入附近厕所的位置
+  const nearToiletHandle = (latitude, longitude, name, address) => {
+    // console.log(latitude, longitude);
     Taro.openLocation({
       name,
       address,
-      latitude,
-      longitude,
+      latitude: Number(latitude),
+      longitude: Number(longitude),
     });
   };
-
-  Taro.getLocation({
-    type: "wgs84",
-    success: function (res) {
-      console.log(res);
-    },
-  });
-
+  // 顶部面板
   const onGridClick = (item, index) => {
-    console.log("点击了");
+    // console.log("点击了");
     switch (index) {
       case 1:
         Taro.navigateTo({
-          url: "MapToilet",
+          url: "../MapToilet/index",
         });
     }
   };
-
+  // 我的位置
+  const [myLocation, setMyLocation] = useState({
+    latitude: 40.010907,
+    longitude: 116.327148,
+  });
+  // 附近的厕所
   const [nearToilet, setNearToilet] = useState([]);
-
+  // 刷新附近恩的厕所数据
   useEffect(() => {
-    setNearToilet(getLocationToiletInfoApi());
+    (async () => {
+      if (
+        myLocation.latitude === undefined ||
+        myLocation.longitude === undefined
+      ) {
+        return;
+      }
+      setNearToilet(
+        await getLocationToiletInfoApi(
+          myLocation.latitude,
+          myLocation.longitude
+        )
+      );
+    })();
+  }, [myLocation]);
+  // 刷新我的位置
+  useEffect(() => {
+    (async () => {
+      const result = await Taro.getLocation();
+      setMyLocation({ latitude: result.latitude, longitude: result.longitude });
+      console.log(result);
+    })();
   }, []);
 
   return (
     <View className="index-view">
-      <View>
+      <View className="grid-view">
         <AtGrid data={gridData} onClick={onGridClick} />
       </View>
-      <View>
-        <AtInput
+      <View className="input-control">
+        <Input
           // className="input-control"
           name="locationName"
-          clear
           placeholder="输入地点搜索"
-          title="成都"
           type="text"
           value={inputSearch}
           onChange={inputChange}
-        >
-          <AtButton onClick={() => console.log(inputSearch)}>搜索</AtButton>
-        </AtInput>
+        />
+        <AtButton onClick={() => console.log(inputSearch)}>搜索</AtButton>
       </View>
       <View>
         <AtList>
-          <AtListItem
+          {/* <AtListItem
             onClick={testHandle}
             title="芙蓉小区"
             note="距离你当前300m"
@@ -121,7 +128,24 @@ const Index = () => {
             note="距离你当前300m"
             extraText="目前排队5人"
             arrow="right"
-          />
+          /> */}
+          {nearToilet.map((item, index) => (
+            <AtListItem
+              key={index}
+              title={item.address}
+              note={`距离你当前${item._distance}m`}
+              extraText="目前排队5人"
+              onClick={() =>
+                nearToiletHandle(
+                  item.location.lat,
+                  item.location.lng,
+                  item.title,
+                  item.address
+                )
+              }
+              arrow="right"
+            />
+          ))}
         </AtList>
       </View>
     </View>

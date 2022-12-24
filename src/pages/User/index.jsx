@@ -5,7 +5,7 @@ import { AtAvatar, AtCard, AtList, AtListItem } from "taro-ui";
 
 import "./index.scss";
 import mikuImg from "@/assets/miku.png";
-import useStore from "@/store";
+import useStore from "@/store/index.js";
 
 const User = () => {
   const { userStore } = useStore();
