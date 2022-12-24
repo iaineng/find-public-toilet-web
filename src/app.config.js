@@ -12,6 +12,7 @@ export default defineAppConfig({
     navigationBarTitleText: "WeChat",
     navigationBarTextStyle: "black",
   },
+  requiredPrivateInfos: ["getLocation"],
   tabBar: {
     color: "#8a8a8a",
     selectedColor: "#FF0000",

@@ -1,18 +1,19 @@
+import apiConfig from "@/api/config";
 import { getToken } from "@/utils/token";
 import { axios } from "taro-axios";
 
 const http = axios.create({
-  baseURL: "",
-  timeout: 1000,
+  baseURL: apiConfig.baseUrl,
+  timeout: apiConfig.timeOut,
   // adapter: TaroAdapter, // 替换默认的适配器，原模块通过适配器使用http
 });
 
 http.interceptors.request.use(
   (config) => {
-    // const token = getToken() || "";
-    // if (token !== "") {
-    //   config.auth.token = `Bear ${token}`;
-    // }
+    const token = getToken() || "";
+    if (token) {
+      config.auth.token = `Bear ${token}`;
+    }
     return config;
   },
   (error) => {

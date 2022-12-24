@@ -20,7 +20,7 @@ const Index = () => {
   const gridData = [
     {
       image: nearIcon,
-      value: "附近的厕所",
+      value: "算法分析排队",
     },
     {
       image: inMapIcon,
@@ -28,7 +28,7 @@ const Index = () => {
     },
     {
       image: popularIcon,
-      value: "热门的公厕",
+      value: "预约公厕",
     },
   ];
 
@@ -53,7 +53,7 @@ const Index = () => {
     switch (index) {
       case 1:
         Taro.navigateTo({
-          url: "../MapToilet/index",
+          url: `../MapToilet/index?latitude=${myLocation.latitude}&longitude=${myLocation.longitude}`,
         });
     }
   };
@@ -73,6 +73,7 @@ const Index = () => {
       ) {
         return;
       }
+      // console.log(myLocation);
       setNearToilet(
         await getLocationToiletInfoApi(
           myLocation.latitude,
