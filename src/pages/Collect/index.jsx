@@ -3,6 +3,7 @@
 import { View } from "@tarojs/components";
 import "./index.scss";
 import { AtGrid } from "taro-ui";
+import Taro from "@tarojs/taro";
 
 import morePeopleImg from "@/assets/more-people.svg";
 import usingToiletImg from "@/assets/using-toilet.svg";
@@ -19,10 +20,21 @@ const Collect = () => {
     },
   ];
 
+  const onGridClick = (item, index) => {
+    switch (index) {
+      case 0:
+        Taro.navigateTo({ url: "../NumberOfToilet/index" });
+        break;
+      case 1:
+        Taro.navigateTo({ url: "../UsingToilet/index" });
+        break;
+    }
+  };
+
   return (
     <View className="collect-view">
       <View style={{ background: "white" }}>
-        <AtGrid data={datas} />
+        <AtGrid data={datas} onClick={onGridClick} />
       </View>
     </View>
   );

@@ -12,6 +12,7 @@ import inMapIcon from "@/assets/in-map.svg";
 import popularIcon from "@/assets/popular.svg";
 
 import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
+import getToiletQueueNumber from "@/api/getToiletQueueNumber";
 
 const Index = () => {
   /**
@@ -85,13 +86,24 @@ const Index = () => {
         return;
       }
       // console.log(myLocation);
-      setNearToilet(
-        await getLocationToiletInfoApi(
-          myLocation.latitude,
-          myLocation.longitude,
-          inputSearch
-        )
+      const response = await getLocationToiletInfoApi(
+        myLocation.latitude,
+        myLocation.longitude,
+        inputSearch
       );
+      // 先把排队人数都获取到，然后刷新附近的厕所数据
+      const queue = response.map((item) => getToiletQueueNumber(item.id));
+      Promise.all(queue).then((queues) => {
+        setNearToilet(
+          response.map((item, index) => ({
+            location: item.location,
+            title: item.title,
+            address: item.address,
+            id: item.id,
+            queueNum: queues[index],
+          }))
+        );
+      });
     })();
   }, [myLocation]);
   // 刷新我的位置
@@ -117,7 +129,9 @@ const Index = () => {
           value={inputSearch}
           onInput={inputChange}
         />
-        <AtButton onClick={inputSubmit}>搜索</AtButton>
+        <AtButton onClick={inputSubmit} className="location-btn" type="primary">
+          搜索
+        </AtButton>
       </View>
       <View>
         <AtList>
@@ -147,7 +161,7 @@ const Index = () => {
               key={index}
               title={item.address}
               note={`距离你当前${item._distance}m`}
-              extraText="排队0人"
+              extraText={`排队${item.queueNum}人`}
               onClick={() =>
                 nearToiletHandle(
                   item.location.lat,

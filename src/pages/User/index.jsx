@@ -12,13 +12,9 @@ const User = () => {
 
   return (
     <View className="user-view">
-      <View style={{ marginTop: "1em" }}>
-        <AtCard title="我的信息">
-          <View className="user-info">
-            <AtAvatar text={userStore.username} image={mikuImg}></AtAvatar>
-            <Text className="nickname">{userStore.username}</Text>
-          </View>
-        </AtCard>
+      <View className="user-info">
+        <AtAvatar text={userStore.username} circle image={mikuImg}></AtAvatar>
+        <Text className="nickname">{userStore.username}</Text>
       </View>
       <View style={{ margin: "1em 0" }}>
         <AtList>

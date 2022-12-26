@@ -2,14 +2,14 @@
 /* eslint-disable jsx-quotes */
 import { View, Picker } from "@tarojs/components";
 import "./index.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect , useMemo } from "react";
 import { AtButton, AtList, AtListItem, AtTimeline } from "taro-ui";
 import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
 import Taro from "@tarojs/taro";
 import getToiletQueueNumber from "@/api/getToiletQueueNumber";
 import { getToken } from "@/utils/token";
 import postBookToilet from "@/api/postBookToilet";
-import { useMemo } from "react";
+
 
 const BookToilet = () => {
   const [startTimeSelected, setStartTimeSelected] = useState("-----");
@@ -163,7 +163,7 @@ const BookToilet = () => {
             <AtListItem
               arrow="right"
               title="选择附近厕所"
-              extraText={selectedToilet.address}
+              note={selectedToilet.address}
             />
           </Picker>
           <AtListItem title="排队人数" extraText={queueNumber}></AtListItem>

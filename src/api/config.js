@@ -1,5 +1,5 @@
 const apiConfig = {
-  baseUrl: "",
-  timeOut: 10000,
+  baseUrl: "", // 主机
+  timeOut: 10000, // 延时
 };
 export default apiConfig;
