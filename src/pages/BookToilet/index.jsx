@@ -6,6 +6,10 @@ import { useState, useEffect } from "react";
 import { AtButton, AtList, AtListItem, AtTimeline } from "taro-ui";
 import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
 import Taro from "@tarojs/taro";
+import getToiletQueueNumber from "@/api/getToiletQueueNumber";
+import { getToken } from "@/utils/token";
+import postBookToilet from "@/api/postBookToilet";
+import { useMemo } from "react";
 
 const BookToilet = () => {
   const [startTimeSelected, setStartTimeSelected] = useState("-----");
@@ -21,6 +25,8 @@ const BookToilet = () => {
     address: undefined,
     distance: undefined,
   });
+
+  const [queueNumber, setQueueNumber] = useState(undefined);
 
   useEffect(() => {
     (async () => {
@@ -66,6 +72,48 @@ const BookToilet = () => {
     console.log(selectedToilet);
   };
 
+  // 刷新排队人数
+  useEffect(() => {
+    (async () => {
+      if (selectedToilet.id === undefined) {
+        return;
+      }
+
+      setQueueNumber(await getToiletQueueNumber(selectedToilet.id));
+    })();
+  }, [selectedToilet]);
+
+  const onSubmit = async () => {
+    const token = getToken();
+
+    const result = await postBookToilet(
+      startTimeSelected,
+      endTimeSelected,
+      selectedToilet.id,
+      token
+    );
+    if (result == true) {
+      Taro.showToast({
+        title: "预约成功",
+        icon: "success",
+        duration: 2000,
+      });
+      setTimeout(() => {
+        Taro.navigateBack();
+      }, 2000);
+    } else {
+      Taro.showToast({
+        title: "预约失败",
+        icon: "error",
+        duration: 2000,
+      });
+    }
+  };
+
+  const nowTime = useMemo(
+    () => new Date().getHours() + ":" + new Date().getMinutes(),
+    []
+  );
   return (
     <View className="at-article">
       <View style={{ background: "white" }}>
@@ -85,6 +133,8 @@ const BookToilet = () => {
         <AtList>
           <Picker
             mode="time"
+            start={nowTime}
+            end={endTimeSelected}
             onChange={(event) => setStartTimeSelected(event.detail.value)}
           >
             <AtListItem
@@ -94,6 +144,7 @@ const BookToilet = () => {
             />
           </Picker>
           <Picker
+            start={startTimeSelected}
             onChange={(event) => setEndTimeSelected(event.detail.value)}
             mode="time"
           >
@@ -115,7 +166,7 @@ const BookToilet = () => {
               extraText={selectedToilet.address}
             />
           </Picker>
-          <AtListItem title="排队人数"></AtListItem>
+          <AtListItem title="排队人数" extraText={queueNumber}></AtListItem>
           <AtListItem
             title="位置距离"
             extraText={
@@ -125,7 +176,9 @@ const BookToilet = () => {
         </AtList>
       </View>
       <View className="footer-btn">
-        <AtButton type="primary">提交</AtButton>
+        <AtButton type="primary" onClick={onSubmit}>
+          提交
+        </AtButton>
       </View>
     </View>
   );

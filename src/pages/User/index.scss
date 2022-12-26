@@ -12,3 +12,10 @@
     margin-left: 1em;
   }
 }
+
+.user-view {
+  flex-flow: column;
+  min-height: 100vh;
+  background: #f1f1f1;
+  display: flex;
+}

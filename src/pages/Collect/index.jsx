@@ -1,5 +1,6 @@
+/* eslint-disable jsx-quotes */
 /* eslint-disable import/first */
-import { View, Text } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import "./index.scss";
 import { AtGrid } from "taro-ui";
 
@@ -19,8 +20,10 @@ const Collect = () => {
   ];
 
   return (
-    <View>
-      <AtGrid data={datas} />
+    <View className="collect-view">
+      <View style={{ background: "white" }}>
+        <AtGrid data={datas} />
+      </View>
     </View>
   );
 };

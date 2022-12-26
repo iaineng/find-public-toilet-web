@@ -35,6 +35,10 @@ const getLocationToiletInfoApi = async (
 
   return response.data.data;
 
+};
+
+export default getLocationToiletInfoApi;
+
   // return [
   //   {
   //     id: "11847976332537982783",
@@ -56,6 +60,3 @@ const getLocationToiletInfoApi = async (
   //     },
   //   },
   // ];
-};
-
-export default getLocationToiletInfoApi;
