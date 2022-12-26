@@ -3,19 +3,14 @@
 import { Map, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import "./index.scss";
-import { useEffect , useState } from "react";
+import { useEffect, useState } from "react";
 import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
 
 import toiletIcon from "@/assets/toilet.svg";
 
-
 const MapToilet = () => {
   // const mapContext = Taro.createMapContext("myMap");
   const params = Taro.getCurrentInstance().router.params;
-  /**
-   * @type {import("@tarojs/components").MapProps["markers"]}
-   */
-  // const markers = [];
   const [markers, setMarkers] = useState([]);
 
   const { latitude, longitude } = params;
@@ -34,7 +29,7 @@ const MapToilet = () => {
           height: 50,
         }))
       );
-      console.log(markers);
+      // console.log(markers);
     })();
   }, []);
 

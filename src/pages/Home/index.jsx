@@ -28,14 +28,18 @@ const Index = () => {
     },
     {
       image: popularIcon,
-      value: "预约公厕",
+      value: "预约厕所",
     },
   ];
 
   const [inputSearch, setInputSearch] = useState("");
-
   const inputChange = (event) => {
-    setInputSearch(event.target.value);
+    // console.log(event);
+    setInputSearch(event.detail.value);
+  };
+  // 提交时，刷新我的位置以更新接口请求
+  const inputSubmit = () => {
+    setMyLocation((prevState) => ({ ...prevState }));
   };
   // 进入附近厕所的位置
   const nearToiletHandle = (latitude, longitude, name, address) => {
@@ -55,6 +59,13 @@ const Index = () => {
         Taro.navigateTo({
           url: `../MapToilet/index?latitude=${myLocation.latitude}&longitude=${myLocation.longitude}`,
         });
+        break;
+      case 0:
+        Taro.navigateTo({ url: "../Analyze/index" });
+        break;
+      case 2:
+        Taro.navigateTo({ url: "../BookToilet/index" });
+        break;
     }
   };
   // 我的位置
@@ -77,7 +88,8 @@ const Index = () => {
       setNearToilet(
         await getLocationToiletInfoApi(
           myLocation.latitude,
-          myLocation.longitude
+          myLocation.longitude,
+          inputSearch
         )
       );
     })();
@@ -87,7 +99,7 @@ const Index = () => {
     (async () => {
       const result = await Taro.getLocation();
       setMyLocation({ latitude: result.latitude, longitude: result.longitude });
-      console.log(result);
+      // console.log(result);
     })();
   }, []);
 
@@ -103,9 +115,9 @@ const Index = () => {
           placeholder="输入地点搜索"
           type="text"
           value={inputSearch}
-          onChange={inputChange}
+          onInput={inputChange}
         />
-        <AtButton onClick={() => console.log(inputSearch)}>搜索</AtButton>
+        <AtButton onClick={inputSubmit}>搜索</AtButton>
       </View>
       <View>
         <AtList>
@@ -135,7 +147,7 @@ const Index = () => {
               key={index}
               title={item.address}
               note={`距离你当前${item._distance}m`}
-              extraText="目前排队5人"
+              extraText="排队0人"
               onClick={() =>
                 nearToiletHandle(
                   item.location.lat,

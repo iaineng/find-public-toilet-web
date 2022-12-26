@@ -1,14 +1,33 @@
 import http from "@/utils/http";
+/**
+ *
+ * @param {number} latitude
+ * @param {number} longitude
+ * @param {string} filter
+ * @param {number} page_size
+ * @param {number} page_index
+ * @returns {{id: string,  title: string,address: string,tel: string,category: string,type: number,location: {  lat: number,  lng: number,},_distance: number,ad_info: {  adcode: number,  province: string,  city: string,  district: string } }[]}
+ */
+const getLocationToiletInfoApi = async (
+  latitude,
+  longitude,
+  filter = undefined,
+  page_size = 20,
+  page_index = 1
+) => {
+  const params = {
+    keyword: encodeURI("厕所"),
+    boundary: `nearby(${latitude},${longitude},1000,1)`,
+    key: "HWLBZ-WZN6D-YAJ4V-HNDBE-PXNU6-C7BO4",
+    page_size,
+    page_index,
+  };
+  if (filter) params.filter = `category=${encodeURI(filter)}`;
 
-const getLocationToiletInfoApi = async (latitude, longitude) => {
   const response = await http.get(
     "https://apis.map.qq.com/ws/place/v1/search",
     {
-      params: {
-        keyword: "厕所",
-        boundary: `nearby(${latitude},${longitude},1000,1)`,
-        key: "HWLBZ-WZN6D-YAJ4V-HNDBE-PXNU6-C7BO4",
-      },
+      params,
     }
   );
 

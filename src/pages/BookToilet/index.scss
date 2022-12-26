@@ -1,0 +1,19 @@
+@import "~taro-ui/dist/style/components/article.scss";
+@import "~taro-ui/dist/style/components/button.scss";
+@import "~taro-ui/dist/style/components/list.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+@import "~taro-ui/dist/style/components/timeline.scss";
+
+.at-article {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  //   justify-content: space-between;
+  background-color: #f5f5f5;
+}
+.footer-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

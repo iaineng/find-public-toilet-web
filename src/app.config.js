@@ -4,7 +4,9 @@ export default defineAppConfig({
     "pages/Home/index",
     "pages/User/index",
     "pages/Collect/index",
+    "pages/Analyze/index",
     "pages/MapToilet/index",
+    "pages/BookToilet/index",
   ],
   window: {
     backgroundTextStyle: "light",
