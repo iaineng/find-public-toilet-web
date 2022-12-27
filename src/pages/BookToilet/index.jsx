@@ -2,14 +2,13 @@
 /* eslint-disable jsx-quotes */
 import { View, Picker } from "@tarojs/components";
 import "./index.scss";
-import { useState, useEffect , useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { AtButton, AtList, AtListItem, AtTimeline } from "taro-ui";
 import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
 import Taro from "@tarojs/taro";
 import getToiletQueueNumber from "@/api/getToiletQueueNumber";
 import { getToken } from "@/utils/token";
 import postBookToilet from "@/api/postBookToilet";
-
 
 const BookToilet = () => {
   const [startTimeSelected, setStartTimeSelected] = useState("-----");
@@ -37,13 +36,13 @@ const BookToilet = () => {
         return;
       }
       // console.log(myLocation);
-      const repsonse = await getLocationToiletInfoApi(
+      const response = await getLocationToiletInfoApi(
         myLocation.latitude,
         myLocation.longitude
       );
 
       setToiletSelector(
-        repsonse.map((item) => ({
+        response.map((item) => ({
           id: item.id,
           address: item.address,
           distance: item._distance,

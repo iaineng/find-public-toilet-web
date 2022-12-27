@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
 export default definePageConfig({
-  navigationBarTitleText: "首页",
-  enablePullDownRefresh: true,
+  navigationBarTitleText: "刷新厕所使用人数",
 });

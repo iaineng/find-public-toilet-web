@@ -1,7 +1,7 @@
 /* eslint-disable import/first */
 /* eslint-disable jsx-quotes */
 import { View, Text } from "@tarojs/components";
-import { AtAvatar, AtCard, AtList, AtListItem } from "taro-ui";
+import { AtAvatar, AtList, AtListItem } from "taro-ui";
 
 import "./index.scss";
 import mikuImg from "@/assets/miku.png";
@@ -18,7 +18,7 @@ const User = () => {
       </View>
       <View style={{ margin: "1em 0" }}>
         <AtList>
-          <AtListItem title="历史记录" arrow="right" />
+          {/* <AtListItem title="历史记录" arrow="right" /> */}
           <AtListItem title="联系客服" arrow="right" />
           <AtListItem title="更新日记" arrow="right" />
           <AtListItem title="关于我们" arrow="right" />
