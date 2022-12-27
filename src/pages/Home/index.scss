@@ -5,15 +5,19 @@
 @import "~taro-ui/dist/style/components/list.scss";
 @import "~taro-ui/dist/style/components/card.scss";
 
+@import "~taro-ui/dist/style/components/search-bar.scss";
+@import "~taro-ui/dist/style/components/button.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+
 .grid-view {
   background: white;
 }
 .input-control {
   margin: 1em 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 1em;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  padding: 0.5em 1em;
   background: white;
   .location-btn {
     margin-right: 0;

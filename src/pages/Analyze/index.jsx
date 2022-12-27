@@ -6,7 +6,7 @@ import { AtNoticebar } from "taro-ui";
 // 通过算法分析排队
 const Analyze = () => {
   return (
-    <View>
+    <View className="analyze-view">
       <AtNoticebar single>算法仅供参考</AtNoticebar>
     </View>
   );

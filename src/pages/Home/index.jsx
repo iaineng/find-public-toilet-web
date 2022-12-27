@@ -2,7 +2,7 @@
 /* eslint-disable jsx-quotes */
 import { Input, View } from "@tarojs/components";
 import { useState, useEffect } from "react";
-import { AtButton, AtGrid, AtList, AtListItem } from "taro-ui";
+import { AtButton, AtGrid, AtList, AtListItem, AtSearchBar } from "taro-ui";
 import Taro from "@tarojs/taro";
 
 import "./index.scss";
@@ -34,10 +34,10 @@ const Index = () => {
   ];
 
   const [inputSearch, setInputSearch] = useState("");
-  const inputChange = (event) => {
-    // console.log(event);
-    setInputSearch(event.detail.value);
-  };
+  // const inputChange = (event) => {
+  //   // console.log(event);
+  //   setInputSearch(event.detail.value);
+  // };
   // 提交时，刷新我的位置以更新接口请求
   const inputSubmit = () => {
     setMyLocation((prevState) => ({ ...prevState }));
@@ -122,7 +122,7 @@ const Index = () => {
         <AtGrid data={gridData} onClick={onGridClick} />
       </View>
       <View className="input-control">
-        <Input
+        {/* <Input
           // className="input-control"
           name="locationName"
           placeholder="输入地点搜索"
@@ -132,7 +132,13 @@ const Index = () => {
         />
         <AtButton onClick={inputSubmit} className="location-btn" type="primary">
           搜索
-        </AtButton>
+        </AtButton> */}
+        <AtSearchBar
+          onChange={(value) => setInputSearch(value)}
+          placeholder="输入地点搜索"
+          value={inputSearch}
+          onActionClick={inputSubmit}
+        />
       </View>
       <View>
         <AtList>
