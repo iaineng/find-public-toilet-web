@@ -7,6 +7,8 @@ import "./index.scss";
 import mikuImg from "@/assets/miku.png";
 import useStore from "@/store/index.js";
 
+import Taro from "@tarojs/taro";
+
 const User = () => {
   const { userStore } = useStore();
 
@@ -19,7 +21,13 @@ const User = () => {
       <View style={{ margin: "1em 0" }}>
         <AtList>
           {/* <AtListItem title="历史记录" arrow="right" /> */}
-          <AtListItem title="联系客服" arrow="right" />
+          <AtListItem
+            title="联系客服"
+            arrow="right"
+            onClick={() => {
+              Taro.navigateTo({ url: "../ContactSupport/index" });
+            }}
+          />
           <AtListItem title="更新日记" arrow="right" />
           <AtListItem title="关于我们" arrow="right" />
         </AtList>

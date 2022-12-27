@@ -9,6 +9,7 @@ export default defineAppConfig({
     "pages/BookToilet/index",
     "pages/UsingToilet/index",
     "pages/NumberOfToilet/index",
+    "pages/ContactSupport/index",
   ],
   window: {
     backgroundTextStyle: "light",

@@ -1,4 +1,4 @@
 /* eslint-disable no-undef */
 export default definePageConfig({
-  navigationBarTitleText: "联系客服",
+  navigationBarTitleText: "刷新厕所使用人数",
 });

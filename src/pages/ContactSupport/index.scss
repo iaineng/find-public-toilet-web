@@ -1,0 +1,22 @@
+@import "~taro-ui/dist/style/components/button.scss";
+
+.contact-support {
+  min-height: 100vh;
+  background-color: #f1f1f1;
+
+  .send-input {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 1.5em;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .send-btn {
+      margin: 0;
+    }
+  }
+}

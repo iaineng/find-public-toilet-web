@@ -1,7 +1,7 @@
 /* eslint-disable import/first */
 /* eslint-disable jsx-quotes */
 import { Map, View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import { useRouter } from "@tarojs/taro";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
@@ -10,7 +10,8 @@ import toiletIcon from "@/assets/toilet.svg";
 
 const MapToilet = () => {
   // const mapContext = Taro.createMapContext("myMap");
-  const params = Taro.getCurrentInstance().router.params;
+  const params = useRouter().params;
+
   const [markers, setMarkers] = useState([]);
 
   const { latitude, longitude } = params;

@@ -101,6 +101,7 @@ const Index = () => {
             address: item.address,
             id: item.id,
             queueNum: queues[index],
+            distance: item._distance,
           }))
         );
       });
@@ -160,7 +161,7 @@ const Index = () => {
             <AtListItem
               key={index}
               title={item.address}
-              note={`距离你当前${item._distance}m`}
+              note={`距离你当前${item.distance}m`}
               extraText={`排队${item.queueNum}人`}
               onClick={() =>
                 nearToiletHandle(
