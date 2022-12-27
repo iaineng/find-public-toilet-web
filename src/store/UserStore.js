@@ -1,36 +1,44 @@
 import { makeAutoObservable } from "mobx";
 import Taro from "@tarojs/taro";
+import userLogin from "@/api/userLogin";
+import { setToken } from "@/utils/token";
 
 class UserStore {
   constructor() {
     makeAutoObservable(this);
   }
-  username = "miku";
+  username = "";
   avatar = ""; // 存放base64 url
   id = 0;
 
-  login() {
-    Taro.login({
-      success: function (res) {
-        if (res.code) {
-          // userLoginApi(res.code);
-        } else {
-          console.log("注册失败！" + res.errMsg);
-        }
-      },
+  async login() {
+    // console.log(this);
+    const UserInfoResult = await Taro.getUserProfile({
+      desc: "请授权信息以登录",
     });
-  }
-  register() {
-    const username = this.username;
-    Taro.login({
-      success: function (res) {
-        if (res.code) {
-          // userRegisterApi(res.code, username);
-        } else {
-          console.log("登录失败！" + res.errMsg);
-        }
-      },
-    });
+
+    this.avatar = UserInfoResult.userInfo.avatarUrl;
+    this.username = UserInfoResult.userInfo.nickName;
+
+    const loginResult = await Taro.login();
+
+    console.log(UserInfoResult);
+    console.log(loginResult);
+
+    const response = await userLogin(
+      loginResult.code,
+      this.avatar,
+      this.nickName
+    );
+    if (response.status !== "success") {
+      Taro.showToast({
+        title: "登录失败",
+        icon: "error",
+        duration: 2000,
+      });
+    } else {
+      setToken(response.token);
+    }
   }
   changeInfo() {}
 }

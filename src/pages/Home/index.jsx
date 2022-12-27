@@ -1,8 +1,8 @@
 /* eslint-disable import/first */
 /* eslint-disable jsx-quotes */
-import { Input, View } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import { useState, useEffect } from "react";
-import { AtButton, AtGrid, AtList, AtListItem, AtSearchBar } from "taro-ui";
+import { AtGrid, AtList, AtListItem, AtSearchBar } from "taro-ui";
 import Taro from "@tarojs/taro";
 
 import "./index.scss";
@@ -13,6 +13,8 @@ import popularIcon from "@/assets/popular.svg";
 
 import getLocationToiletInfoApi from "@/api/getLocationToiletInfo";
 import getToiletQueueNumber from "@/api/getToiletQueueNumber";
+import useStore from "@/store";
+import { observer } from "@tarojs/mobx";
 
 const Index = () => {
   /**
@@ -40,7 +42,10 @@ const Index = () => {
   // };
   // 提交时，刷新我的位置以更新接口请求
   const inputSubmit = () => {
-    setMyLocation((prevState) => ({ ...prevState }));
+    // myLocationStore.refresh();
+    console.log(myLocationStore);
+    toiletRefresh();
+    // setMyLocation((prevState) => ({ ...prevState }));
   };
   // 进入附近厕所的位置
   const nearToiletHandle = (latitude, longitude, name, address) => {
@@ -58,11 +63,14 @@ const Index = () => {
     switch (index) {
       case 1:
         Taro.navigateTo({
-          url: `../MapToilet/index?latitude=${myLocation.latitude}&longitude=${myLocation.longitude}`,
+          url: `../MapToilet/index?latitude=${myLocationStore.latitude}&longitude=${myLocationStore.longitude}`,
         });
         break;
       case 0:
-        Taro.navigateTo({ url: "../Analyze/index" });
+        Taro.showToast({ title: "暂未开放", icon: "error", duration: 1000 });
+        // Taro.navigateTo({
+        //   url: `../Analyze/index?latitude=${myLocation.latitude}&longitude=${myLocation.longitude}`,
+        // });
         break;
       case 2:
         Taro.navigateTo({ url: "../BookToilet/index" });
@@ -70,51 +78,54 @@ const Index = () => {
     }
   };
   // 我的位置
-  const [myLocation, setMyLocation] = useState({
-    latitude: 40.010907,
-    longitude: 116.327148,
-  });
+  // const [myLocation, setMyLocation] = useState({
+  //   latitude: 40.010907,
+  //   longitude: 116.327148,
+  // });
+  const { myLocationStore } = useStore();
   // 附近的厕所
   const [nearToilet, setNearToilet] = useState([]);
   // 刷新附近恩的厕所数据
-  useEffect(() => {
-    (async () => {
-      if (
-        myLocation.latitude === undefined ||
-        myLocation.longitude === undefined
-      ) {
-        return;
-      }
-      // console.log(myLocation);
-      const response = await getLocationToiletInfoApi(
-        myLocation.latitude,
-        myLocation.longitude,
-        inputSearch
+  const toiletRefresh = async () => {
+    if (
+      myLocationStore.latitude === undefined ||
+      myLocationStore.longitude === undefined
+    ) {
+      // myLocation.refresh();
+      return;
+    }
+    // console.log(myLocation);
+    const response = await getLocationToiletInfoApi(
+      myLocationStore.latitude,
+      myLocationStore.longitude,
+      inputSearch
+    );
+    // 先把排队人数都获取到，然后刷新附近的厕所数据
+    const queue = response.map((item) => getToiletQueueNumber(item.id));
+    Promise.all(queue).then((queues) => {
+      setNearToilet(
+        response.map((item, index) => ({
+          location: item.location,
+          title: item.title,
+          address: item.address,
+          id: item.id,
+          queueNum: queues[index],
+          distance: item._distance,
+        }))
       );
-      // 先把排队人数都获取到，然后刷新附近的厕所数据
-      const queue = response.map((item) => getToiletQueueNumber(item.id));
-      Promise.all(queue).then((queues) => {
-        setNearToilet(
-          response.map((item, index) => ({
-            location: item.location,
-            title: item.title,
-            address: item.address,
-            id: item.id,
-            queueNum: queues[index],
-            distance: item._distance,
-          }))
-        );
-      });
-    })();
-  }, [myLocation]);
-  // 刷新我的位置
+    });
+  };
   useEffect(() => {
-    (async () => {
-      const result = await Taro.getLocation();
-      setMyLocation({ latitude: result.latitude, longitude: result.longitude });
-      // console.log(result);
-    })();
+    toiletRefresh();
   }, []);
+  // 刷新我的位置
+  // useEffect(() => {
+  // (async () => {
+  //   const result = await Taro.getLocation();
+  //   setMyLocation({ latitude: result.latitude, longitude: result.longitude });
+  //   // console.log(result);
+  // })();
+  // }, []);
 
   return (
     <View className="index-view">
@@ -135,7 +146,7 @@ const Index = () => {
         </AtButton> */}
         <AtSearchBar
           onChange={(value) => setInputSearch(value)}
-          placeholder="输入地点搜索"
+          placeholder="输入地点类型搜索"
           value={inputSearch}
           onActionClick={inputSubmit}
         />
@@ -186,4 +197,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default observer(Index);

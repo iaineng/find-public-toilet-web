@@ -1,15 +1,17 @@
 /* eslint-disable import/first */
 /* eslint-disable jsx-quotes */
 import { View, Text } from "@tarojs/components";
-import { AtAvatar, AtList, AtListItem, AtModal } from "taro-ui";
+import { AtAvatar, AtButton, AtList, AtListItem, AtModal } from "taro-ui";
 
 import "./index.scss";
-import mikuImg from "@/assets/miku.png";
+// import mikuImg from "@/assets/miku.png";
 import useStore from "@/store/index.js";
 
 import Taro from "@tarojs/taro";
 import MessageModal from "@/components/UpdateMessaageModal";
 import { useState } from "react";
+import { observer } from "mobx-react";
+// import { getToken } from "@/utils/token";
 
 const User = () => {
   const { userStore } = useStore();
@@ -17,11 +19,25 @@ const User = () => {
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
 
+  // const token = getToken();
+
   return (
     <View className="user-view">
       <View className="user-info">
-        <AtAvatar text={userStore.username} circle image={mikuImg}></AtAvatar>
-        <Text className="nickname">{userStore.username}</Text>
+        {userStore.username === "" ? (
+          <AtButton type="primary" onClick={() => userStore.login()}>
+            点我登录
+          </AtButton>
+        ) : (
+          <>
+            <AtAvatar
+              text={userStore.username}
+              circle
+              image={userStore.avatar}
+            ></AtAvatar>
+            <Text className="nickname">{userStore.username}</Text>
+          </>
+        )}
       </View>
       <View style={{ margin: "1em 0" }}>
         <AtList>
@@ -65,4 +81,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default observer(User);

@@ -19,7 +19,7 @@ const MapToilet = () => {
   useEffect(() => {
     (async () => {
       const locationMap = await getLocationToiletInfoApi(latitude, longitude);
-      console.log(locationMap);
+      // console.log(locationMap);
       setMarkers(
         locationMap.map((item) => ({
           id: Number(item.id),
@@ -32,7 +32,7 @@ const MapToilet = () => {
       );
       // console.log(markers);
     })();
-  }, []);
+  }, [latitude, longitude]);
 
   return (
     <View>
@@ -45,6 +45,7 @@ const MapToilet = () => {
         showCompass
         longitude={longitude}
         markers={markers}
+        covers={markers}
         enableTraffic
       />
     </View>
