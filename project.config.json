@@ -1,11 +1,12 @@
 {
-	"miniprogramRoot": "dist/",
-	"projectname": "find-public-toilet-web",
-	"description": "find-public-toilet-web",
-	"appid": "touristappid",
-	"setting": {
-		"urlCheck": true,
-		"es6": false,
+  "miniprogramRoot": "dist/",
+  "projectname": "find-public-toilet-web",
+  "description": "find-public-toilet-web",
+  "appid": "wx7f0822ae88010ed4",
+  "cloudfunctionRoot": "cloud_functions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
 		"postcss": false,
